@@ -1,69 +1,105 @@
-import Image from "next/image";
+import { FAQ } from "@/components/landing/faq";
+import { FeatureShowcase } from "@/components/landing/feature-showcase";
+import { Footer } from "@/components/landing/footer";
+import { Header } from "@/components/landing/header";
+import { Hero } from "@/components/landing/hero";
+import { HowItWorks } from "@/components/landing/how-it-works";
+import { ScreenshotGallery } from "@/components/landing/screenshot-gallery";
+
+const BASE = "https://snapfound.app";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      name: "SnapFound",
+      operatingSystem: "iOS",
+      applicationCategory: "ProductivityApplication",
+      description:
+        "Search your screenshots instantly using on-device OCR. Find receipts, Wi-Fi passwords, order confirmations, and more — privately, with no account required.",
+      url: BASE,
+      creator: { "@id": "https://snapfound.app/#founder" },
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Does SnapFound upload my screenshots?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. OCR, tagging, indexing, and search all happen on your iPhone. Your screenshots, OCR text, and search queries are not uploaded.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does SnapFound need an account?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No account is required. SnapFound works entirely on-device with no sign-in.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does it search all photos?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "SnapFound is designed for screenshots. It focuses on your screenshot library, not your entire photo collection.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What can I search for?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Receipts, Wi-Fi passwords, order confirmations, flights, bookings, error messages, verification codes, notes, and more. Any text that appears in an indexed screenshot.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does it work offline?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Once screenshots are indexed, search works locally — no internet connection required.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is SnapFound a subscription?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. SnapFound Pro is a one-time purchase with no recurring charges.",
+          },
+        },
+      ],
+    },
+  ],
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      {/* trusted static data — standard Next.js JSON-LD pattern */}
+      <script
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted static JSON-LD
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        type="application/ld+json"
+      />
+      <Header />
+      <main>
+        <Hero />
+        <FeatureShowcase />
+        <ScreenshotGallery />
+        <HowItWorks />
+        <FAQ />
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
